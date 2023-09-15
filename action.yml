@@ -1,0 +1,146 @@
+name: "Newman/Postman Action with notifications"
+description: "Use this action to run your postman collections and send notifications about the outcome"
+author: "Simon Scholz"
+
+inputs:
+  apiKey:
+    description: "Postman API key"
+  collection:
+    description: ""
+    required: true
+
+  environment:
+    description: ""
+    required: false
+
+  envVar:
+    description: ""
+    required: false
+
+  globals:
+    description: ""
+    required: false
+
+  globalVar:
+    description: ""
+    required: false
+
+  exportGlobals:
+    description: ""
+    required: false
+
+  exportEnvironment:
+    description: ""
+    required: false
+
+  exportCollection:
+    description: ""
+    required: false
+
+  iterationCount:
+    description: ""
+    required: false
+
+  iterationData:
+    description: ""
+    required: false
+
+  folder:
+    description: ""
+    required: false
+
+  workingDir:
+    description: ""
+    required: false
+
+  insecureFileRead:
+    description: ""
+    required: false
+
+  timeout:
+    description: ""
+    required: false
+    default: "Infinity"
+
+  timeoutRequest:
+    description: ""
+    required: false
+    default: "Infinity"
+
+  timeoutScript:
+    description: ""
+    required: false
+    default: "Infinity"
+
+  delayRequest:
+    description: ""
+    required: false
+
+  ignoreRedirects:
+    description: ""
+    required: false
+
+  insecure:
+    description: ""
+    required: false
+    default: "false"
+
+  bail:
+    description: ""
+    required: false
+    default: "false"
+
+  suppressExitCode:
+    description: ""
+    required: false
+    default: "false"
+
+  reporters:
+    description: ""
+    required: false
+    default: '["cli"]'
+
+  reporter:
+    description: ""
+    required: false
+
+  color:
+    description: ""
+    required: false
+    default: "auto"
+
+  sslClientCert:
+    description: ""
+    required: false
+
+  sslClientKey:
+    description: ""
+    required: false
+
+  sslClientPassphrase:
+    description: ""
+    required: false
+
+  sslClientCertList:
+    description: ""
+    required: false
+
+  sslExtraCaCerts:
+    description: ""
+    required: false
+
+  requestAgents:
+    description: ""
+    required: false
+
+  cookieJar:
+    description: ""
+    required: false
+
+outputs:
+  summary:
+    description: "The summary json object of the newman run"
+
+runs:
+  using: node20
+  main: dist/index.js
