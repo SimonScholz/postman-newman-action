@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
-import { parseOptions } from './newmanOptions'
 import * as newman from 'newman'
+import { parseOptions } from './newmanOptions'
+import { createResultOutputFromSummary } from './output'
 
 /**
  * The main function for the action.
@@ -12,7 +13,8 @@ export async function run(): Promise<void> {
     newman
       .run(options)
       .on('done', (err: Error, summary: newman.NewmanRunSummary) => {
-        core.setOutput('summary', JSON.stringify(summary))
+        core.setOutput('original_summary', JSON.stringify(summary))
+        core.setOutput('summary', createResultOutputFromSummary(summary))
         errorHandling(options, err, summary)
       })
   } catch (error) {
