@@ -25,15 +25,15 @@
     "node": ">=20"
   },
   "scripts": {
-    "bundle": "pnpm run format:write && pnpm run package",
+    "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
     "package": "ncc build src/index.ts --license licenses.txt",
-    "package:watch": "pnpm run package -- --watch",
+    "package:watch": "npm run package -- --watch",
     "test": "(jest && make-coverage-badge --output-path ./badges/coverage.svg) || make-coverage-badge --output-path ./badges/coverage.svg",
-    "all": "pnpm run format:write && pnpm run lint && pnpm run test && pnpm run package"
+    "all": "npm run format:write && npm run lint && npm run test && npm run package"
   },
   "license": "Apache-2.0",
   "jest": {
