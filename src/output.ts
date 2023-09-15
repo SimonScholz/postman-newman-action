@@ -6,7 +6,7 @@ export function createResultOutputFromSummary(
   const failures = summary.run.failures.map(failure => {
     return {
       name: failure.source?.name,
-      test: failure.error.name,
+      test: failure.error.test,
       message: failure.error.message
     }
   })

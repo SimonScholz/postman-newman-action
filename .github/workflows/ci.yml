@@ -54,7 +54,6 @@ jobs:
         uses: ./
         with:
           collection: "./__tests__/httpbin-collection.json"
-          envVar: '[{ "key": "user", "value": "Simon"}]'
 
       - name: Print Output
         id: output
