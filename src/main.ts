@@ -18,8 +18,13 @@ export async function run(): Promise<void> {
         errorHandling(options, err, summary)
       })
   } catch (error) {
-    // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error.message)
+    } else if (typeof error === 'string') {
+      core.setFailed(error)
+    } else {
+      core.setFailed('unexpected error')
+    }
   }
 }
 
