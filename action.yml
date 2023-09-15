@@ -98,7 +98,7 @@ inputs:
   reporters:
     description: ""
     required: false
-    default: '["cli"]'
+    default: "cli"
 
   reporter:
     description: ""
