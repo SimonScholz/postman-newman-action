@@ -12,7 +12,7 @@ export async function run(): Promise<void> {
     newman
       .run(options)
       .on('done', (err: Error, summary: newman.NewmanRunSummary) => {
-        core.setOutput('summary', summary)
+        core.setOutput('summary', JSON.stringify(summary))
         errorHandling(options, err, summary)
       })
   } catch (error) {
