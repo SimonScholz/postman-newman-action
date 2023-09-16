@@ -5,141 +5,160 @@ author: "Simon Scholz"
 inputs:
   apiKey:
     description: "Postman API key"
+    required: false
+
   collection:
-    description: ""
+    description: "The exported collection.json to be run or URL to the collection, which needs the `apiKey` property"
     required: true
+    default: ""
 
   environment:
-    description: ""
+    description: "The environment.json to be used or URL to the environment, which needs the `apiKey` property"
     required: false
 
   envVar:
-    description: ""
+    description: "Additional environment variables, which can also override the ones from the `environment`."
     required: false
 
   globals:
-    description: ""
+    description: "The globals.json to be used"
     required: false
 
   globalVar:
-    description: ""
+    description: "Additional global variables, which can also override the ones from the `globals`."
     required: false
 
   exportGlobals:
-    description: ""
+    description: "The relative path to export the globals file from the current run"
     required: false
 
   exportEnvironment:
-    description: ""
+    description: "The relative path to export the environment file from the current run"
     required: false
 
   exportCollection:
-    description: ""
+    description: "The relative path to export the collection from the current run"
     required: false
 
   iterationCount:
-    description: ""
+    description: "Specify the number of iterations to run on the collection. This is usually accompanied by providing a data file reference as `iterationData`."
     required: false
 
   iterationData:
-    description: ""
+    description: "Path to the JSON or CSV file or URL to be used as a data source when running multiple iterations on a collection."
     required: false
 
   folder:
-    description: ""
+    description: "The name or ID of the folder (ItemGroup) in the collection which would be run instead of the entire collection."
     required: false
 
   workingDir:
-    description: ""
+    description: "The path of the directory to be used as the working directory."
     required: false
 
   insecureFileRead:
-    description: ""
+    description: "Allow reading files outside of the working directory. (type: boolean)"
     required: false
 
   timeout:
-    description: ""
+    description: "Specify the time (in milliseconds) to wait for the entire collection run to complete execution. (type: number)"
     required: false
     default: "Infinity"
 
   timeoutRequest:
-    description: ""
+    description: "Specify the time (in milliseconds) to wait for requests to return a response. (type: number)"
     required: false
     default: "Infinity"
 
   timeoutScript:
-    description: ""
+    description: "Specify the time (in milliseconds) to wait for scripts to return a response. (type: number)"
     required: false
     default: "Infinity"
 
   delayRequest:
-    description: ""
+    description: "Specify the time (in milliseconds) to wait for between subsequent requests. (type: number)"
     required: false
+    default: "0"
 
   ignoreRedirects:
-    description: ""
+    description: "This specifies whether Newman would automatically follow 3xx responses from servers. (type: boolean)"
     required: false
+    default: "false"
 
   insecure:
-    description: ""
+    description: "Disables SSL verification checks and allows self-signed SSL certificates. (type: boolean)"
     required: false
     default: "false"
 
   bail:
-    description: ""
+    description: 'Specify whether or not to stop a collection run on encountering the first test script error. "folder" allows you to skip the entire collection run in case an invalid folder was specified using the `folder` option or an error was encountered in general. "failure" would gracefully stop a collection run after completing the current test script. (possible values: `true` or `false` or `folder` or `failure`)'
     required: false
     default: "false"
 
   suppressExitCode:
-    description: ""
+    description: "If present, allows overriding the default exit code from the current collection run, useful for bypassing collection result failures. (type: boolean)"
     required: false
     default: "false"
 
   reporters:
-    description: ""
+    description: "Available reporters: cli, json, html, and junit."
     required: false
     default: "cli"
 
   reporter:
-    description: ""
+    description: "Specify options for the reporter(s) declared in options.reporters. (type: any)"
     required: false
 
   color:
-    description: ""
+    description: "Enable or Disable colored CLI output. (possible values: `on` or `of` or `auto`)"
     required: false
     default: "auto"
 
   sslClientCert:
-    description: ""
+    description: "The path to the public client certificate file."
     required: false
 
   sslClientKey:
-    description: ""
+    description: "The path to the private client key file."
     required: false
 
   sslClientPassphrase:
-    description: ""
+    description: "The secret client key passphrase."
     required: false
 
   sslClientCertList:
-    description: ""
+    description: "The path to the client certificate configuration list file. This option takes precedence over sslClientCert, sslClientKey, and slClientPassphrase. When there is no match in this configuration list, sslClientCert is used as a fallback."
     required: false
 
   sslExtraCaCerts:
-    description: ""
+    description: "The path to the file that holds one or more trusted CA certificates in PEM format."
     required: false
 
   requestAgents:
-    description: ""
+    description: "Custom HTTP(S) agents which will be used for making the requests. This allows for the use of various proxies (e.g. socks)"
     required: false
 
   cookieJar:
-    description: ""
+    description: "A tough-cookie cookieJar / file path for the current collection run."
     required: false
+
+  outputOriginalSummary:
+    description: "Whether the original summary object of the newman run should be set as output or not (type: `boolean`)"
+    required: false
+    default: "false"
+
+  outputGoogleCardV2:
+    description: "Whether the google cards v2 sections array should be set as output or not (type: `boolean`)"
+    required: false
+    default: "false"
 
 outputs:
   summary:
-    description: "The summary json object of the newman run"
+    description: "A lightweight summary json object of the newman run"
+  originalSummary:
+    description: "The original summary json object of the newman run"
+  googleCardV2:
+    description: "The output, which can be used as structure for the google chat card v2"
 
 runs:
   using: node20
