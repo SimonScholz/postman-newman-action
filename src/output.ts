@@ -1,23 +1,27 @@
 import * as newman from 'newman'
 import * as core from '@actions/core'
 
-export function handleOutputs(summary: newman.NewmanRunSummary) {
+export function handleOutputs(summary: newman.NewmanRunSummary): void {
   outputSummary(summary)
   outputOriginalSummary(summary)
+  outputGoogleCardV2(summary)
 }
 
-function outputSummary(summary: newman.NewmanRunSummary) {
+function outputSummary(summary: newman.NewmanRunSummary): void {
   core.setOutput('summary', createResultOutputFromSummary(summary))
 }
 
-function outputOriginalSummary(summary: newman.NewmanRunSummary) {
-  if(core.getBooleanInput('outputOriginalSummary')) {
+function outputOriginalSummary(summary: newman.NewmanRunSummary): void {
+  if (core.getBooleanInput('outputOriginalSummary')) {
     core.setOutput('originalSummary', JSON.stringify(summary))
   }
 }
 
-function outputGoogleCardV2(summary: newman.NewmanRunSummary) {
-  if(core.getBooleanInput('outputGoogleCardV2')) {
+function outputGoogleCardV2(summary: newman.NewmanRunSummary): void {
+  if (core.getBooleanInput('outputGoogleCardV2')) {
+    console.debug(
+      `Setting run of ${summary.collection.name} as googleCardV2 output`
+    )
     // TODO Create google card v2 structure
     // core.setOutput('googleCardV2', JSON.stringify(summary))
   }
