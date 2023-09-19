@@ -19,11 +19,10 @@ function outputOriginalSummary(summary: newman.NewmanRunSummary): void {
 
 function outputGoogleCardV2(summary: newman.NewmanRunSummary): void {
   if (core.getBooleanInput('outputGoogleCardV2')) {
-    console.debug(
-      `Setting run of ${summary.collection.name} as googleCardV2 output`
+    core.setOutput(
+      'googleCardV2',
+      JSON.stringify(createGoogleCardV2StructureOutput(summary))
     )
-    // TODO Create google card v2 structure
-    // core.setOutput('googleCardV2', JSON.stringify(summary))
   }
 }
 
@@ -44,4 +43,50 @@ function createResultOutputFromSummary(
     Requests: summary.run.stats.requests,
     Assertions: summary.run.stats.assertions
   })
+}
+
+function createGoogleCardV2StructureOutput(
+  summary: newman.NewmanRunSummary
+): unknown[] {
+  const defaultWidgets: unknown[] = [
+    {
+      decoratedText: {
+        startIcon: { knownIcon: 'DESCRIPTION' },
+        text: `Collection: ${summary.collection.name}`
+      }
+    },
+    {
+      decoratedText: {
+        startIcon: { knownIcon: 'MEMBERSHIP' },
+        text: `Requests: Total: ${summary.run.stats.requests.total} Failed: ${summary.run.stats.requests.failed}`
+      }
+    },
+    {
+      decoratedText: {
+        startIcon: { knownIcon: 'MEMBERSHIP' },
+        text: `Assertions: Total: ${summary.run.stats.assertions.total} Failed: ${summary.run.stats.assertions.failed}`
+      }
+    }
+  ]
+
+  const failureWidgets: unknown[] = summary.run.failures.map(failure => {
+    return {
+      decoratedText: {
+        startIcon: {
+          iconUrl:
+            'https://cdn2.iconfinder.com/data/icons/kids/128x128/apps/agt_action_fail.png'
+        },
+        text: `Name: ${failure.source?.name} \nTest: ${failure.error.test} \nMessage: ${failure.error.message}`
+      }
+    }
+  })
+
+  return [
+    {
+      header: `Newman Test Failures (${summary.run.failures.length})`,
+      collapsible: true,
+      uncollapsibleWidgetsCount: 3,
+      widgets: defaultWidgets.concat(failureWidgets)
+    }
+  ]
 }
