@@ -89,7 +89,7 @@ function createGoogleCardV2StructureOutput(
           iconUrl:
             'https://cdn2.iconfinder.com/data/icons/kids/128x128/apps/agt_action_fail.png'
         },
-        wrapText: false,
+        wrapText: true,
         text: `<b>Name:</b> ${failure.source?.name} <br><b>Test:</b> ${failure.error.test} <br><b>Message:</b> ${failure.error.message}`
       }
     }
