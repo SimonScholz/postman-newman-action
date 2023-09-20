@@ -58,13 +58,13 @@ function createGoogleCardV2StructureOutput(
     {
       decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
-        text: `Requests: Total: ${summary.run.stats.requests.total} Failed: ${summary.run.stats.requests.failed}`
+        text: `<b>Requests:</b> Total: ${summary.run.stats.requests.total} Failed: ${summary.run.stats.requests.failed}`
       }
     },
     {
       decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
-        text: `Assertions: Total: ${summary.run.stats.assertions.total} Failed: ${summary.run.stats.assertions.failed}`
+        text: `<b>Assertions:</b> Total: ${summary.run.stats.assertions.total} Failed: ${summary.run.stats.assertions.failed}`
       }
     }
   ]
@@ -76,14 +76,14 @@ function createGoogleCardV2StructureOutput(
           iconUrl:
             'https://cdn2.iconfinder.com/data/icons/kids/128x128/apps/agt_action_fail.png'
         },
-        text: `Name: ${failure.source?.name} \nTest: ${failure.error.test} \nMessage: ${failure.error.message}`
+        text: `<b>Name:</b> ${failure.source?.name} \n<b>Test:</b> ${failure.error.test} \n<b>Message:</b> ${failure.error.message}`
       }
     }
   })
 
   return [
     {
-      header: `Newman Test Failures (${summary.run.failures.length})`,
+      header: `Newman Test Run`,
       collapsible: true,
       uncollapsibleWidgetsCount: 3,
       widgets: defaultWidgets.concat(failureWidgets)
