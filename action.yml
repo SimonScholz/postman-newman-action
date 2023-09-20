@@ -1,5 +1,5 @@
-name: "Newman/Postman Action with notifications"
-description: "Use this action to run your postman collections and send notifications about the outcome"
+name: "Newman/Postman Action with different outputs"
+description: "Run newman/postman collections via GitHub actions using newman 6.0.0 and newman run summary as action output for further notifications."
 author: "Simon Scholz"
 
 inputs:

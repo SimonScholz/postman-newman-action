@@ -14,7 +14,22 @@ If I find time I'd also intend to include sending notifications about the run fo
 
 ## Example Usage
 
-... to be done ...
+```yaml
+  postman-newman-action:
+    name: Run Postman Newman GitHub Actions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Run Postman collection
+        id: postman-newman-action
+        uses: SimonScholz/postman-newman-action@main
+        with:
+            collection: "./collections/your-collection.json"
+```
 
 ## Inputs
 

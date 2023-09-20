@@ -50,12 +50,23 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Postman collection
-        id: test-action
+        id: postman-newman-action
         uses: ./
         with:
           collection: "./__tests__/httpbin-collection.json"
+          outputGoogleCardV2: true
 
       - name: Print Output
         id: output
-        run: echo "${{ steps.test-action.outputs.summary }}"
+        run: echo "${{ steps.postman-newman-action.outputs.summary }}"
         if: ${{ always() }}
+
+      - name: Notify Google Chat
+        if: ${{ always() }}
+        uses: SimonScholz/google-chat-action@main
+        with:
+          webhookUrl: '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}'
+          additionalSections: '${{ steps.postman-newman-action.outputs.googleCardV2 }}'
+          jobStatus: '${{ job.status }}'
+          imageUrl: https://user-images.githubusercontent.com/7853266/44114706-9c72dd08-9fd1-11e8-8d9d-6d9d651c75ad.png
+          imageAltText: 'Postman Image'
