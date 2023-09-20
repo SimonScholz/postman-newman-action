@@ -62,18 +62,21 @@ function createGoogleCardV2StructureOutput(
     {
       decoratedText: {
         startIcon: { knownIcon: 'DESCRIPTION' },
+        wrapText: false,
         text: `<b>Collection:</b> ${summary.collection.name}`
       }
     },
     {
       decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
+        wrapText: false,
         text: `<b>Requests:</b> Total: ${summary.run.stats.requests.total} Failed: ${failedRequestText}`
       }
     },
     {
       decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
+        wrapText: false,
         text: `<b>Assertions:</b> Total: ${summary.run.stats.assertions.total} Failed: ${failedAssertText}`
       }
     }
@@ -86,6 +89,7 @@ function createGoogleCardV2StructureOutput(
           iconUrl:
             'https://cdn2.iconfinder.com/data/icons/kids/128x128/apps/agt_action_fail.png'
         },
+        wrapText: false,
         text: `<b>Name:</b> ${failure.source?.name} \n<b>Test:</b> ${failure.error.test} \n<b>Message:</b> ${failure.error.message}`
       }
     }

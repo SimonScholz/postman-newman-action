@@ -40,7 +40,7 @@ jobs:
         id: npm-ci-test
         run: npm run ci-test
 
-  test-action:
+  postman-newman-action:
     name: GitHub Actions Test
     runs-on: ubuntu-latest
 
@@ -67,6 +67,32 @@ jobs:
         with:
           webhookUrl: '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}'
           additionalSections: '${{ steps.postman-newman-action.outputs.googleCardV2 }}'
+          jobStatus: '${{ job.status }}'
+          imageUrl: https://user-images.githubusercontent.com/7853266/44114706-9c72dd08-9fd1-11e8-8d9d-6d9d651c75ad.png
+          imageAltText: 'Postman Image'
+
+      - name: Run Postman collection 2
+        if: ${{ always() }}
+        id: postman-newman-action-2
+        uses: ./
+        with:
+          collection: "./__tests__/httpbin-collection.json"
+          outputGoogleCardV2: true
+
+      - name: Concat outputGoogleCardV2 output using jq
+        if: ${{ always() }}
+        id: concat-google-card-v2
+        run: |
+          CONCATINATED_ARRAY=echo -e "${{ steps.postman-newman-action.outputs.googleCardV2 }}\n${{ steps.postman-newman-action-2.outputs.googleCardV2 }}" | jq -s 'add'
+          echo "GOOGLE_CHAT_SECTIONS_ARRAY=$CONCATINATED_ARRAY" >> "$GITHUB_OUTPUT"
+
+      - name: Notify Google Chat
+        if: ${{ always() }}
+        uses: SimonScholz/google-chat-action@main
+        with:
+          title: 'Concatenated Google Chat Card'
+          webhookUrl: '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}'
+          additionalSections: '${{ steps.concat-google-card-v2.outputs.GOOGLE_CHAT_SECTIONS_ARRAY }}'
           jobStatus: '${{ job.status }}'
           imageUrl: https://user-images.githubusercontent.com/7853266/44114706-9c72dd08-9fd1-11e8-8d9d-6d9d651c75ad.png
           imageAltText: 'Postman Image'

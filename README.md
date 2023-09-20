@@ -31,6 +31,116 @@ If I find time I'd also intend to include sending notifications about the run fo
             collection: "./collections/your-collection.json"
 ```
 
+## Sending a summary card v2 to a Google Chat
+
+```yaml
+name: Run Postman Newman Action
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "* */2 * * *" # run the action every 2 hours
+
+  postman-newman-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Run Postman collection
+        id: postman-newman-action
+        uses: SimonScholz/postman-newman-action@main
+        with:
+          collection: "./collections/your-collection.json"
+          outputGoogleCardV2: true
+
+      - name: Notify Google Chat
+        if: ${{ always() }} # Use always to ensure that the notification is also send on former failure
+        uses: SimonScholz/google-chat-action@main
+        with:
+          webhookUrl: '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}'
+          additionalSections: '${{ steps.postman-newman-action.outputs.googleCardV2 }}'
+          jobStatus: '${{ job.status }}'
+          imageUrl: https://user-images.githubusercontent.com/7853266/44114706-9c72dd08-9fd1-11e8-8d9d-6d9d651c75ad.png
+          imageAltText: 'Postman Image'
+
+```
+
+Besides `if: ${{ always() }}` you can of course also use any other if statement, e.g., `if: ${{ failure() }}` to only send a message on failure.
+
+## Concatenate outputs from several collection runs using jq
+
+You might also want to concatenate the different `googleCardV2` cards into one large card sections array so that only one card is sent at the end instead of one for every collection.
+
+jq is a command line json parser, which can also read different json objects line by line using the `--slurp / -s` command:
+
+```yaml
+- name: Concat outputGoogleCardV2 output using jq
+  id: concat-google-card-v2
+  run: |
+    CONCATINATED_ARRAY=echo -e "${{ steps.postman-newman-action.outputs.googleCardV2 }}\n${{ steps.postman-newman-action-two.outputs.googleCardV2 }}" | jq -s 'add'
+    echo "GOOGLE_CHAT_SECTIONS_ARRAY=$CONCATINATED_ARRAY" >> "$GITHUB_OUTPUT"
+```
+
+- `echo -e` causes the `\n` to be converted into real new lines
+- `jq -s 'add'` lets jq "slurp" json objects line by line while `'add'` will do the concatenation
+- The result will then be written to the `$GITHUB_OUTPUT`
+
+A complete example would look like this:
+
+```yaml
+name: Run Postman Newman Action
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "* */2 * * *" # run the action every 2 hours
+
+  postman-newman-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Run Postman collection
+        id: postman-newman-action
+        uses: SimonScholz/postman-newman-action@main
+        with:
+          collection: "./collections/your-collection.json"
+          outputGoogleCardV2: true
+
+      - name: Run Postman 2nd collection
+        id: postman-newman-action-two
+        uses: SimonScholz/postman-newman-action@main
+        with:
+          collection: "./collections/your-2nd-collection.json"
+          outputGoogleCardV2: true
+
+      - name: Concat outputGoogleCardV2 output using jq
+        id: concat-google-card-v2
+        run: |
+          CONCATINATED_ARRAY=echo -e "${{ steps.postman-newman-action.outputs.googleCardV2 }}\n${{ steps.postman-newman-action-two.outputs.googleCardV2 }}" | jq -s 'add'
+          echo "GOOGLE_CHAT_SECTIONS_ARRAY=$CONCATINATED_ARRAY" >> "$GITHUB_OUTPUT"
+
+      - name: Notify Google Chat
+        if: ${{ always() }}
+        uses: SimonScholz/google-chat-action@main
+        with:
+          title: 'Concatenated Google Chat Card'
+          webhookUrl: '${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}'
+          additionalSections: '${{ steps.concat-google-card-v2.outputs.GOOGLE_CHAT_SECTIONS_ARRAY }}'
+          jobStatus: '${{ job.status }}'
+          imageUrl: https://user-images.githubusercontent.com/7853266/44114706-9c72dd08-9fd1-11e8-8d9d-6d9d651c75ad.png
+          imageAltText: 'Postman Image'
+
+```
+
 ## Inputs
 
 | Property      | Description                     |  Default  | Required   |
