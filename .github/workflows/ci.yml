@@ -76,7 +76,7 @@ jobs:
         id: postman-newman-action-2
         uses: ./
         with:
-          collection: "./__tests__/httpbin-collection.json"
+          collection: "./__tests__/httpbin-collection-2.json"
           outputGoogleCardV2: true
 
       - name: Concat outputGoogleCardV2 output using jq

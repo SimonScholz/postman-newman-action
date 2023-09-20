@@ -63,13 +63,6 @@ function createGoogleCardV2StructureOutput(
       decoratedText: {
         startIcon: { knownIcon: 'DESCRIPTION' },
         wrapText: false,
-        text: `<b>Collection:</b> ${summary.collection.name}`
-      }
-    },
-    {
-      decoratedText: {
-        startIcon: { knownIcon: 'MEMBERSHIP' },
-        wrapText: false,
         text: `<b>Requests:</b> Total: ${summary.run.stats.requests.total} Failed: ${failedRequestText}`
       }
     },
@@ -97,9 +90,9 @@ function createGoogleCardV2StructureOutput(
 
   return [
     {
-      header: `Newman Test Run`,
+      header: `<b>Collection:</b> ${summary.collection.name}`,
       collapsible: true,
-      uncollapsibleWidgetsCount: 3,
+      uncollapsibleWidgetsCount: 0,
       widgets: defaultWidgets.concat(failureWidgets)
     }
   ]
