@@ -21,7 +21,7 @@
 							"    // check response code",
 							"    pm.expect(pm.response.code).to.eql(200);",
 							"    // Check arg",
-							"    pm.expect(jsonData.args.newman).to.eql('Hello Simon');",
+							"    pm.expect(jsonData.args.newman).to.eql('Hello Newman');",
 							"});",
 							""
 						],
