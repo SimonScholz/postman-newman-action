@@ -48,23 +48,33 @@ function createResultOutputFromSummary(
 function createGoogleCardV2StructureOutput(
   summary: newman.NewmanRunSummary
 ): unknown[] {
+  const failedRequestText =
+    summary.run.stats.requests.failed !== undefined &&
+    summary.run.stats.requests.failed > 0
+      ? `<font color="#FF0B0B">${summary.run.stats.requests.failed}</font>`
+      : '0'
+  const failedAssertText =
+    summary.run.stats.assertions.failed !== undefined &&
+    summary.run.stats.assertions.failed > 0
+      ? `<font color="#FF0B0B">${summary.run.stats.assertions.failed}</font>`
+      : '0'
   const defaultWidgets: unknown[] = [
     {
       decoratedText: {
         startIcon: { knownIcon: 'DESCRIPTION' },
-        text: `Collection: ${summary.collection.name}`
+        text: `<b>Collection:</b> ${summary.collection.name}`
       }
     },
     {
       decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
-        text: `<b>Requests:</b> Total: ${summary.run.stats.requests.total} Failed: ${summary.run.stats.requests.failed}`
+        text: `<b>Requests:</b> Total: ${summary.run.stats.requests.total} Failed: ${failedRequestText}`
       }
     },
     {
       decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
-        text: `<b>Assertions:</b> Total: ${summary.run.stats.assertions.total} Failed: ${summary.run.stats.assertions.failed}`
+        text: `<b>Assertions:</b> Total: ${summary.run.stats.assertions.total} Failed: ${failedAssertText}`
       }
     }
   ]
