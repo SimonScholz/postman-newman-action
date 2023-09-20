@@ -61,13 +61,6 @@ function createGoogleCardV2StructureOutput(
   const defaultWidgets: unknown[] = [
     {
       decoratedText: {
-        startIcon: { knownIcon: 'DESCRIPTION' },
-        wrapText: false,
-        text: `<b>Collection:</b> ${summary.collection.name}`
-      }
-    },
-    {
-      decoratedText: {
         startIcon: { knownIcon: 'MEMBERSHIP' },
         wrapText: false,
         text: `<b>Requests:</b> Total: ${summary.run.stats.requests.total} Failed: ${failedRequestText}`
@@ -97,8 +90,8 @@ function createGoogleCardV2StructureOutput(
 
   const headerText =
     summary.run.failures.length > 0
-      ? `<font color="#FF0B0B">${summary.run.failures.length} Failures</font>`
-      : `<b>Collection:</b> ${summary.collection.name}`
+      ? `<font color="#FF0B0B">${summary.collection.name} - ${summary.run.failures.length} Failure(s)</font>`
+      : summary.collection.name
 
   return [
     {
