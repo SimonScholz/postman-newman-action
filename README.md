@@ -31,7 +31,18 @@ If I find time I'd also intend to include sending notifications about the run fo
             collection: "./collections/your-collection.json"
 ```
 
+When using the default reporter, which is `cli`, the output in the github action will look similar to this:
+
+![Newman run cli output](./docs/cli-output.png)
+
 ## Sending a summary card v2 to a Google Chat
+
+The output could look similar to this:
+
+![Google Chat simple card collapsed](./docs/google-chat-simple-collapsed.png)
+
+And this is a complete example to make use of it.
+Basically it utilizes my [google-chat-action](https://github.com/SimonScholz/google-chat-action).
 
 ```yaml
 name: Run Postman Newman Action
@@ -74,6 +85,14 @@ Besides `if: ${{ always() }}` you can of course also use any other if statement,
 ## Concatenate outputs from several collection runs using jq
 
 You might also want to concatenate the different `googleCardV2` cards into one large card sections array so that only one card is sent at the end instead of one for every collection.
+
+This is how a collapsed card would look like:
+
+![Google Chat Card collapsed](./docs/google-chat-card-collapsed.png)
+
+And this is how an expanded card would look like:
+
+![Google Chat Card expanded](./docs/google-chat-card-expanded.png)
 
 jq is a command line json parser, which can also read different json objects line by line using the `--slurp / -s` command:
 
