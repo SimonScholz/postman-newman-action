@@ -53,7 +53,7 @@ jobs:
         id: postman-newman-action
         uses: ./
         with:
-          collection: "./__tests__/httpbin-collection.json"
+          collection: "./__tests__/httpbin-collection-2.json"
           outputGoogleCardV2: true
 
       - name: Print Output
