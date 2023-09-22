@@ -122,9 +122,9 @@ function getStringOrUndefined(value?: string): string | string[] | undefined {
   }
 
   if (value.includes(',')) {
-    return value.split(',')
+    return value.split(',').map(v => v.trim())
   }
-  return value
+  return value.trim()
 }
 
 function getBooleanOrUndefined(value?: string): boolean | undefined {
