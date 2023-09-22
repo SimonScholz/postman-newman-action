@@ -1,6 +1,14 @@
-name: "Newman/Postman Action with different outputs"
-description: "Run newman/postman collections via GitHub actions using newman 6.0.0 and newman run summary as action output for further notifications."
+name: "Newman/Postman action with different outputs"
+description: "Run newman/postman collections via GitHub actions using newman 6.0.0 + newman run summary as action output for further notifications."
 author: "Simon Scholz"
+
+runs:
+  using: node20
+  main: dist/index.js
+
+branding:
+  icon: 'send'
+  color: 'orange'
 
 inputs:
   apiKey:
@@ -159,7 +167,3 @@ outputs:
     description: "The original summary json object of the newman run"
   googleCardV2:
     description: "The output, which can be used as structure for the google chat card v2"
-
-runs:
-  using: node20
-  main: dist/index.js
