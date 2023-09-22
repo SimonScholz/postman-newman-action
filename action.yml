@@ -1,5 +1,5 @@
 name: "Newman/Postman action with different outputs"
-description: "Run newman/postman collections via GitHub actions using newman 6.0.0 + newman run summary as action output for further notifications."
+description: "Run postman collections via GitHub actions using newman 6.0.0 + run summaries as action output for further notifications."
 author: "Simon Scholz"
 
 runs:
