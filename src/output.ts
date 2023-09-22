@@ -19,10 +19,11 @@ function outputOriginalSummary(summary: newman.NewmanRunSummary): void {
 
 function outputGoogleCardV2(summary: newman.NewmanRunSummary): void {
   if (core.getBooleanInput('outputGoogleCardV2')) {
-    core.setOutput(
-      'googleCardV2',
-      JSON.stringify(createGoogleCardV2StructureOutput(summary))
+    const googleCardV2 = JSON.stringify(
+      createGoogleCardV2StructureOutput(summary)
     )
+    console.log(googleCardV2)
+    core.setOutput('googleCardV2', googleCardV2)
   }
 }
 
