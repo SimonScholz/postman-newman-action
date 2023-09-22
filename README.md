@@ -53,7 +53,7 @@ When using the default reporter, which is `cli`, the output in the github action
 | exportCollection     | The relative path to export the collection from the current run to     |    🚫     |    🚫      |
 | iterationCount     | Specify the number of iterations to run on the collection. This is usually accompanied by providing a data file reference as `iterationData`    |    🚫     |    🚫      |
 | iterationData     | Path to the JSON or CSV file or URL to be used as data source when running multiple iterations on a collection.     |    🚫     |    🚫      |
-| folder     |   The name or ID of the folder (ItemGroup) in the collection which would be run instead of the entire collection  |    🚫     |    🚫      |
+| folder     |   The name or ID of the folder (ItemGroup) in the collection which would be run instead of the entire collection (type: `string` or comma separated list `string1, string2`)  |    🚫     |    🚫      |
 | workingDir | The path of the directory to be used as working directory.     |    🚫     |    🚫      |
 | insecureFileRead     | Allow reading files outside of working directory. (type: `boolean`) |    🚫     |    🚫      |
 | timeout     |  Specify the time (in milliseconds) to wait for the entire collection run to complete execution. (type: `number`)  |    Infinity     |    🚫      |
@@ -64,13 +64,13 @@ When using the default reporter, which is `cli`, the output in the github action
 | insecure     | Disables SSL verification checks and allows self-signed SSL certificates. (type: `boolean`) |    false     |    🚫      |
 | bail     | Specify whether or not to stop a collection run on encountering the     first test script error. "folder" allows you to skip the entire collection run in case an invalid folder was specified using the `folder` option or an error was     encountered in general. "failure" would gracefully stop a collection run after completing the current test script. (possible values: `true` or `false` or `folder` or `failure`)     |    false     |    🚫      |
 | suppressExitCode     | If present, allows overriding the default exit code from the current collection run, useful for bypassing collection result failures. (type: `boolean`) |    false     |    🚫      |
-| reporters     | Available reporters: cli, json, html and junit.     |    cli     |    🚫      |
+| reporters     | Available reporters: cli, json, html and junit. (type: `string` or comma separated list `string1, string2`) |    cli     |    🚫      |
 | reporter     | Specify options for the reporter(s) declared in options.reporters. (type: `any`)     |    🚫     |    🚫      |
 | color     | Enable or Disable colored CLI output. (possible values: `on` or `of` or `auto`) |    auto     |    🚫      |
 | sslClientCert     | The path to the public client certificate file.  |    🚫     |    🚫      |
 | sslClientKey | The path to the private client key file.  |    🚫     |    🚫      |
 | sslClientPassphrase | The secret client key passphrase.  |    🚫     |    🚫      |
-| sslClientCertList     | The path to the client certificate configuration list file. This option takes precedence over sslClientCert, sslClientKey and slClientPassphrase. When there is no match in this configuration list, sslClientCert is used as fallback. |    🚫     |    🚫      |
+| sslClientCertList     | The path to the client certificate configuration list file. This option takes precedence over sslClientCert, sslClientKey and slClientPassphrase. When there is no match in this configuration list, sslClientCert is used as fallback. (type: `string` or comma separated list `string1, string2`) |    🚫     |    🚫      |
 | sslExtraCaCerts     | The path to the file, that holds one or more trusted CA certificates in PEM format.    |    🚫     |    🚫      |
 | requestAgents     | Custom HTTP(S) agents which will be used for making the requests. This allows for use of various proxies (e.g. socks) |    🚫     |    🚫      |
 | cookieJar     | A tough-cookie cookieJar / file path for the current collection run. |    🚫     |    🚫      |
