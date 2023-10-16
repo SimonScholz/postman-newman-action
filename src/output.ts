@@ -84,15 +84,15 @@ function createGoogleCardV2StructureOutput(
             'https://raw.githubusercontent.com/SimonScholz/google-chat-action/main/assets/failure-128.png'
         },
         wrapText: true,
-        text: `<b>Name:</b> ${JSON.stringify(failure.source?.name)} <br><b>Test:</b> ${JSON.stringify(failure.error.test)} <br><b>Message:</b> ${JSON.stringify(failure.error.message)}`
+        text: `<b>Name:</b> ${makeJQAndBashFriendly(failure.source?.name)} <br><b>Test:</b> ${makeJQAndBashFriendly(failure.error.test)} <br><b>Message:</b> ${makeJQAndBashFriendly(failure.error.message)}`
       }
     }
   })
 
   const headerText =
     summary.run.failures.length > 0
-      ? `<font color="#FF0B0B">${JSON.stringify(summary.collection.name)} - ${summary.run.failures.length} Failure(s)</font>`
-      : JSON.stringify(summary.collection.name)
+      ? `<font color="#FF0B0B">${makeJQAndBashFriendly(summary.collection.name)} - ${summary.run.failures.length} Failure(s)</font>`
+      : makeJQAndBashFriendly(summary.collection.name)
 
   return [
     {
@@ -102,4 +102,15 @@ function createGoogleCardV2StructureOutput(
       widgets: defaultWidgets.concat(failureWidgets)
     }
   ]
+}
+
+/**
+ * Removes single quotes and html tags from a JSON string
+ * so that it can be used in bash scripts together with jq.
+ *
+ * @param jsonString json string that may contain single quotes
+ * @returns the JSON string without single quotes
+ */
+function makeJQAndBashFriendly(jsonString: string | undefined): string | undefined {
+  return jsonString?.replace(/'/g, '').replace( /(<([^>]+)>)/ig, '')
 }
