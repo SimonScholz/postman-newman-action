@@ -84,15 +84,15 @@ function createGoogleCardV2StructureOutput(
             'https://raw.githubusercontent.com/SimonScholz/google-chat-action/main/assets/failure-128.png'
         },
         wrapText: true,
-        text: `<b>Name:</b> ${failure.source?.name} <br><b>Test:</b> ${failure.error.test} <br><b>Message:</b> ${failure.error.message}`
+        text: `<b>Name:</b> ${JSON.stringify(failure.source?.name)} <br><b>Test:</b> ${JSON.stringify(failure.error.test)} <br><b>Message:</b> ${JSON.stringify(failure.error.message)}`
       }
     }
   })
 
   const headerText =
     summary.run.failures.length > 0
-      ? `<font color="#FF0B0B">${summary.collection.name} - ${summary.run.failures.length} Failure(s)</font>`
-      : summary.collection.name
+      ? `<font color="#FF0B0B">${JSON.stringify(summary.collection.name)} - ${summary.run.failures.length} Failure(s)</font>`
+      : JSON.stringify(summary.collection.name)
 
   return [
     {
