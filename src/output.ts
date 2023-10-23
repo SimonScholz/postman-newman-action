@@ -22,7 +22,6 @@ function outputGoogleCardV2(summary: newman.NewmanRunSummary): void {
     const googleCardV2 = JSON.stringify(
       createGoogleCardV2StructureOutput(summary)
     )
-    console.log(googleCardV2)
     core.setOutput('googleCardV2', googleCardV2)
   }
 }
