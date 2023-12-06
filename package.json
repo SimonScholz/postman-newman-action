@@ -71,7 +71,7 @@
     "newman": "6.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.10",
+    "@types/jest": "^29.5.11",
     "@types/newman": "^5.3.6",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
