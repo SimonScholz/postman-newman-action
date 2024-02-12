@@ -1504,7 +1504,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 js-sha512
 MIT
-Copyright 2014-2018 Chen, Yi-Cyuan
+Copyright 2014-2024 Chen, Yi-Cyuan
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
